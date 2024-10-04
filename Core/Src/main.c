@@ -104,12 +104,18 @@ void blend_image(void)
 	nema_fill_rect(0, 0, 800, 480, bg_color);
 
 	//Image
-	memcpy(img_data, img_benchmark_cogwheel_rgb.data, 100 * 100* 4);
+	lv_memcpy(img_data, img_benchmark_cogwheel_rgb.data, 100 * 100* 4);
 	void * data = img_benchmark_cogwheel_rgb.data;
 	nema_bind_src_tex((uintptr_t)(data), 100, 100, NEMA_BGRX8888, 100 * 4, NEMA_FILTER_PS);
 	nema_set_blend_blit(blending_mode);
 	nema_blit_rect(0, 0, 100, 100);
 	nema_cl_submit(&(draw_nema_gfx_unit->cl));
+}
+
+static void regression(void)
+{
+	lv_obj_t * img = lv_image_create(lv_screen_active());
+	lv_image_set_src(img, &img_benchmark_cogwheel_rgb);
 }
 
 
@@ -208,6 +214,7 @@ int main(void)
 //	 lv_demo_widgets();
 	//lv_demo_music();
 	 lv_demo_benchmark();
+	// regression();
 
 	/* USER CODE END 2 */
 
