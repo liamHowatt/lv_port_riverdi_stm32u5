@@ -86,37 +86,31 @@ static void MX_NVIC_Init(void);
 #include "lvgl/src/draw/nema_gfx/lv_draw_nema_gfx.h"
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-//extern lv_draw_nema_gfx_unit_t * draw_nema_gfx_unit;
-//LV_IMAGE_DECLARE(img_benchmark_cogwheel_rgb);
+extern lv_draw_nema_gfx_unit_t * draw_nema_gfx_unit;
+LV_IMAGE_DECLARE(img_benchmark_cogwheel_rgb);
 static uint8_t img_data[100*100*4];
 
-//void blend_image(void)
-//{
-//	uint32_t fb = 0x20000000;
-//
-//	nema_set_clip(0, 0, 800, 480);
-//	nema_bind_dst_tex((uintptr_t)NEMA_VIRT2PHYS(fb), 800, 480, NEMA_RGB565, 800 * 2);
-//
-//	//Fill
-//	uint32_t blending_mode = NEMA_BL_SRC_OVER;
-//	nema_set_blend_fill(NEMA_BL_SRC);
-//	uint32_t bg_color = nema_rgba(0xff, 0x00, 0x00, 0xff);
-//	nema_fill_rect(0, 0, 800, 480, bg_color);
-//
-//	//Image
-//	lv_memcpy(img_data, img_benchmark_cogwheel_rgb.data, 100 * 100* 4);
-//	void * data = img_benchmark_cogwheel_rgb.data;
-//	nema_bind_src_tex((uintptr_t)(data), 100, 100, NEMA_BGRX8888, 100 * 4, NEMA_FILTER_PS);
-//	nema_set_blend_blit(blending_mode);
-//	nema_blit_rect(0, 0, 100, 100);
-//	nema_cl_submit(&(draw_nema_gfx_unit->cl));
-//}
-//
-//static void regression(void)
-//{
-//	lv_obj_t * img = lv_image_create(lv_screen_active());
-//	lv_image_set_src(img, &img_benchmark_cogwheel_rgb);
-//}
+void blend_image(void)
+{
+	uint32_t fb = 0x20000000;
+
+	nema_set_clip(0, 0, 800, 480);
+	nema_bind_dst_tex((uintptr_t)NEMA_VIRT2PHYS(fb), 800, 480, NEMA_RGB565, 800 * 2);
+
+	//Fill
+	uint32_t blending_mode = NEMA_BL_SRC_OVER;
+	nema_set_blend_fill(NEMA_BL_SRC);
+	uint32_t bg_color = nema_rgba(0xff, 0x00, 0x00, 0xff);
+	nema_fill_rect(0, 0, 800, 480, bg_color);
+
+	//Image
+	lv_memcpy(img_data, img_benchmark_cogwheel_rgb.data, 100 * 100* 4);
+	void * data = img_benchmark_cogwheel_rgb.data;
+	nema_bind_src_tex((uintptr_t)(data), 100, 100, NEMA_BGRX8888, 100 * 4, NEMA_FILTER_PS);
+	nema_set_blend_blit(blending_mode);
+	nema_blit_rect(0, 0, 100, 100);
+	nema_cl_submit(&(draw_nema_gfx_unit->cl));
+}
 
 
 /* USER CODE END 0 */
@@ -211,10 +205,9 @@ int main(void)
 	lvgl_touchscreen_init();
 
 	/* lvgl demo */
-//	 lv_demo_widgets();
+	//  lv_demo_widgets();
 	//lv_demo_music();
-	 lv_demo_benchmark();
-	// regression();
+	lv_demo_benchmark();
 
 	/* USER CODE END 2 */
 
