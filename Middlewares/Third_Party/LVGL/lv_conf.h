@@ -78,7 +78,7 @@
  * - LV_OS_RTTHREAD
  * - LV_OS_WINDOWS
  * - LV_OS_CUSTOM */
-#define LV_USE_OS   LV_OS_FREERTOS
+#define LV_USE_OS   LV_OS_NONE
 
 #if LV_USE_OS == LV_OS_CUSTOM
     #define LV_OS_CUSTOM_INCLUDE <stdint.h>
@@ -187,7 +187,7 @@
     #define LV_NEMA_GFX_HAL_INCLUDE <stm32u5xx_hal.h>
 
     /*Enable Vector Graphics Operations. Available only if NemaVG library is present*/
-    #define LV_USE_NEMA_VG 0
+    #define LV_USE_NEMA_VG 1
 
     #if LV_USE_NEMA_VG
         /*Define application's resolution used for VG related buffer allocation */
