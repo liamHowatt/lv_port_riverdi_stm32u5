@@ -33,13 +33,18 @@ void lvgl_display_init (void)
 {
 	/* display initialization */
 
-	disp = lv_display_create(MY_DISP_HOR_RES, MY_DISP_VER_RES);
-	lv_display_set_buffers(disp, buf_1, NULL, sizeof(buf_1), LV_DISPLAY_RENDER_MODE_PARTIAL);
-	lv_display_set_flush_cb(disp, disp_flush);
+  // lv_st_ltdc_create_direct((void *)0x20000000, NULL, 0);
+  lv_st_ltdc_create_direct((void *)0x20000000, buf_1, 0);
+  // lv_st_ltdc_create_partial(buf_1, NULL, MY_DISP_HOR_RES * MY_DISP_VER_RES, 0);
+  // lv_st_ltdc_create_partial(buf_1, buf_1 + MY_DISP_HOR_RES * MY_DISP_VER_RES, MY_DISP_HOR_RES * MY_DISP_VER_RES, 0);
 
-	/* interrupt callback for DMA2D transfer */
-	hdma2d.XferCpltCallback = disp_flush_complete;
-	hdma2d.XferErrorCallback = disp_flush_error;
+	// disp = lv_display_create(MY_DISP_HOR_RES, MY_DISP_VER_RES);
+	// lv_display_set_buffers(disp, buf_1, NULL, sizeof(buf_1), LV_DISPLAY_RENDER_MODE_PARTIAL);
+	// lv_display_set_flush_cb(disp, disp_flush);
+
+	// /* interrupt callback for DMA2D transfer */
+	// hdma2d.XferCpltCallback = disp_flush_complete;
+	// hdma2d.XferErrorCallback = disp_flush_error;
 }
 
 /**********************
